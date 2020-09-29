@@ -7,7 +7,7 @@ export default function Home() {
     const [email, setEmail] = useState();
 
     function handleSignUpToNewsletter(event: FormEvent) {
-        event.preventDefault()
+        event.preventDefault();
         axios.post('/api/subscribe', {email})
     }
 
