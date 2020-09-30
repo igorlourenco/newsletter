@@ -18,7 +18,8 @@
     "mongodb": "^3.6.2",
     "next": "9.5.2",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "sendgrid": "^5.2.3"
   },
   "devDependencies": {
     "@types/mongodb": "^3.5.27",
