@@ -46,17 +46,14 @@ export default async (request: NowRequest, response: NowResponse) => {
         subscribedAt: new Date()
     });
 
-    await (async () => {
-        try {
-            await MailService.send(message)
-        } catch (error) {
-            console.error(error);
-
-            if (error.response) {
-                console.error(error.response.body)
-            }
-        }
-    })();
+    MailService
+        .send(message)
+        .then(() => {
+            console.log('Email enviado')
+        })
+        .catch((error) => {
+            console.error(error)
+        })
 
     return response.status(201).json({ok: true});
 }
