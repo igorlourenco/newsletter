@@ -1,9 +1,10 @@
 import {NowRequest, NowResponse} from '@vercel/node'
 import {MongoClient, Db} from 'mongodb'
 import url from 'url'
-import MailService from "@sendgrid/mail"
 
 let cachedDb: Db = null
+
+declare function require(name:string);
 
 async function connectToDatabase(uri: string) {
 
@@ -25,23 +26,22 @@ async function connectToDatabase(uri: string) {
     return db;
 }
 
-async function sendMail(mailService, message){
-    const send = await mailService.send(message)
-    return await send;
+async function sendMail(email){
+    const sendgrid = require("sendgrid")(process.env.SENDGRID_API_KEY);
+    const message = new sendgrid.Email();
+    message.addTo(email);
+    message.setFrom("theigorlourenco@gmail.com");
+    message.setSubject("Inscrição na minha sewsletter");
+    message.setHtml("Você se inscreveu na newsletter do Igor Lourenço (isso é fictício).");
+
+    await sendgrid.send(email);
+
+    return true;
 }
 
 export default async (request: NowRequest, response: NowResponse) => {
     const {email} = request.body;
 
-    MailService.setApiKey(process.env.SENDGRID_API_KEY);
-
-    const message = {
-        to: email,
-        from: 'theigorlourenco@gmail.com',
-        subject: 'Inscrição na minha sewsletter',
-        text: 'Você se inscreveu na newsletter do Igor Lourenço',
-        html: '<br><strong>essa mensagem é um teste</strong>'
-    }
 
     const db = await connectToDatabase(process.env.MONGODB_URI);
     const collection = db.collection('subscribers');
@@ -51,7 +51,7 @@ export default async (request: NowRequest, response: NowResponse) => {
         subscribedAt: new Date()
     });
 
-    await sendMail(MailService, message);
+    await sendMail(email);
 
     return response.status(201).json({ok: true});
 }
