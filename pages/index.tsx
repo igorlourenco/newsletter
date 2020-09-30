@@ -57,6 +57,7 @@ export default function Home() {
                 </Text>
 
                 <Input
+                    as="input"
                     placeholder="Seu e-mail"
                     id="email"
                     marginTop={2}
