@@ -26,14 +26,8 @@ async function connectToDatabase(uri: string) {
 }
 
 async function sendMail(mailService, message){
-    await mailService
-        .send(message)
-        .then(() => {
-            console.log('Email enviado')
-        })
-        .catch((error) => {
-            console.error(error)
-        })
+    const send = await mailService.send(message)
+    return await send;
 }
 
 export default async (request: NowRequest, response: NowResponse) => {
