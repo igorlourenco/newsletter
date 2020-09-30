@@ -9,22 +9,23 @@ export default function Home() {
 
     const [email, setEmail] = useState();
 
-    const [loading, setLoading] = useState( false );
-    const handleLoading = () => setLoading( !loading );
+    const [loading, setLoading] = useState(false);
+    const handleLoading = () => setLoading(!loading);
 
     async function handleSignUpToNewsletter(event: FormEvent) {
         event.preventDefault()
         handleLoading()
         const response = await axios.post('/api/subscribe', {email})
-        console.log(response);
-        handleLoading()
-        toast({
-            title: "Inscrição concluída",
-            description: "Você foi incluído na lista de recebimento da newsletter!",
-            status: "success",
-            duration: 9000,
-            isClosable: true,
-        })
+        if (response.status === 201) {
+            handleLoading()
+            toast({
+                title: "Inscrição concluída",
+                description: "Você foi incluído na lista de recebimento da newsletter!",
+                status: "success",
+                duration: 9000,
+                isClosable: true,
+            })
+        }
     }
 
 
