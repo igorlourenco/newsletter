@@ -15,7 +15,8 @@ export default function Home() {
     async function handleSignUpToNewsletter(event: FormEvent) {
         event.preventDefault()
         handleLoading()
-        await axios.post('/api/subscribe', {email})
+        const response = await axios.post('/api/subscribe', {email})
+        console.log(response);
         handleLoading()
         toast({
             title: "Inscrição concluída",
