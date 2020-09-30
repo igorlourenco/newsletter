@@ -17,6 +17,7 @@ export default function Home() {
         handleLoading()
         const response = await axios.post('/api/subscribe', {email})
         if (response.status === 201) {
+            setLoading(false)
             Array.from(document.querySelectorAll("input")).forEach(
                 input => (input.value = "")
             );
