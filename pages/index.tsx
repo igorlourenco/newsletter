@@ -1,14 +1,29 @@
 import {FormEvent, useState} from 'react'
-import {Flex, Button, Image, Text} from '@chakra-ui/core'
+import {Flex, Button, Text, useToast} from '@chakra-ui/core'
 import Input from '../components/Input'
 import axios from 'axios'
 
 export default function Home() {
+
+    const toast = useToast();
+
     const [email, setEmail] = useState();
 
-    function handleSignUpToNewsletter(event: FormEvent) {
-        event.preventDefault();
-        axios.post('/api/subscribe', {email})
+    const [loading, setLoading] = useState( false );
+    const handleLoading = () => setLoading( !loading );
+
+    async function handleSignUpToNewsletter(event: FormEvent) {
+        event.preventDefault()
+        handleLoading()
+        await axios.post('/api/subscribe', {email})
+        handleLoading()
+        toast({
+            title: "Inscrição concluída",
+            description: "Você foi incluído na lista de recebimento da newsletter!",
+            status: "success",
+            duration: 9000,
+            isClosable: true,
+        })
     }
 
 
@@ -45,6 +60,7 @@ export default function Home() {
                 />
 
                 <Button
+                    isLoading={loading}
                     type="submit"
                     backgroundColor="blue.500"
                     height="50px"
