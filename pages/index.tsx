@@ -17,7 +17,9 @@ export default function Home() {
         handleLoading()
         const response = await axios.post('/api/subscribe', {email})
         if (response.status === 201) {
-            setLoading(false);
+            Array.from(document.querySelectorAll("input")).forEach(
+                input => (input.value = "")
+            );
             toast({
                 title: "Inscrição concluída",
                 description: "Você foi incluído na lista de recebimento da newsletter!",
@@ -56,6 +58,7 @@ export default function Home() {
 
                 <Input
                     placeholder="Seu e-mail"
+                    id="email"
                     marginTop={2}
                     value={email}
                     onChange={e => setEmail(e.target.value)}
