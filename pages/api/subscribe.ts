@@ -4,8 +4,6 @@ import url from 'url'
 
 let cachedDb: Db = null
 
-declare function require(name:string);
-
 async function connectToDatabase(uri: string) {
 
     if (cachedDb) {
@@ -26,20 +24,6 @@ async function connectToDatabase(uri: string) {
     return db;
 }
 
-async function sendMail(email){
-    console.log("entrou aqui");
-    const sendgrid = require("sendgrid")(process.env.SENDGRID_API_KEY);
-    const message = new sendgrid.Email();
-    message.addTo(email);
-    message.setFrom("theigorlourenco@gmail.com");
-    message.setSubject("Inscrição na minha sewsletter");
-    message.setHtml("Você se inscreveu na newsletter do Igor Lourenço (isso é fictício).");
-
-    await sendgrid.send(email);
-    console.log("saiu aqui");
-    return true;
-}
-
 export default async (request: NowRequest, response: NowResponse) => {
     const {email} = request.body;
 
@@ -51,8 +35,6 @@ export default async (request: NowRequest, response: NowResponse) => {
         email,
         subscribedAt: new Date()
     });
-
-    await sendMail(email);
 
     return response.status(201).json({ok: true});
 }

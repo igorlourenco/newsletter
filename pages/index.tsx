@@ -13,9 +13,13 @@ export default function Home() {
     const handleLoading = () => setLoading(!loading);
 
     async function handleSignUpToNewsletter(event: FormEvent) {
+        const params = new URLSearchParams({email});
+
         event.preventDefault()
         handleLoading()
         const response = await axios.post('/api/subscribe', {email})
+        const sendmail = await axios.get('/api/send-mail', {params})
+
         if (response.status === 201) {
             setLoading(false)
             Array.from(document.querySelectorAll("input")).forEach(
