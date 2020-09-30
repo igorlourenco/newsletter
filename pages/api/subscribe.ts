@@ -25,6 +25,17 @@ async function connectToDatabase(uri: string) {
     return db;
 }
 
+async function sendMail(mailService, message){
+    await mailService
+        .send(message)
+        .then(() => {
+            console.log('Email enviado')
+        })
+        .catch((error) => {
+            console.error(error)
+        })
+}
+
 export default async (request: NowRequest, response: NowResponse) => {
     const {email} = request.body;
 
@@ -46,14 +57,7 @@ export default async (request: NowRequest, response: NowResponse) => {
         subscribedAt: new Date()
     });
 
-    MailService
-        .send(message)
-        .then(() => {
-            console.log('Email enviado')
-        })
-        .catch((error) => {
-            console.error(error)
-        })
+    await sendMail(MailService, message);
 
     return response.status(201).json({ok: true});
 }
