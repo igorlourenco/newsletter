@@ -17,7 +17,7 @@ export default function Home() {
         handleLoading()
         const response = await axios.post('/api/subscribe', {email})
         if (response.status === 201) {
-            console.log("enviou")
+            setLoading(false);
             toast({
                 title: "Inscrição concluída",
                 description: "Você foi incluído na lista de recebimento da newsletter!",
