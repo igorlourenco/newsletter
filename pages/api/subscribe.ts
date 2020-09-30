@@ -27,6 +27,7 @@ async function connectToDatabase(uri: string) {
 }
 
 async function sendMail(email){
+    console.log("entrou aqui");
     const sendgrid = require("sendgrid")(process.env.SENDGRID_API_KEY);
     const message = new sendgrid.Email();
     message.addTo(email);
@@ -35,7 +36,7 @@ async function sendMail(email){
     message.setHtml("Você se inscreveu na newsletter do Igor Lourenço (isso é fictício).");
 
     await sendgrid.send(email);
-
+    console.log("saiu aqui");
     return true;
 }
 
