@@ -28,7 +28,7 @@ export default async (request: NowRequest, response: NowResponse) => {
 
     const {email} = request.body;
 
-    const finalEmail = email.replace(" ", "");
+    const finalEmail = email.toString().replace(/ /g,"");
 
     const db = await connectToDatabase(process.env.MONGODB_URI);
     const collection = db.collection('subscribers');

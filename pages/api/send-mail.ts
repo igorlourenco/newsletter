@@ -4,7 +4,7 @@ export default async (request: NowRequest, response: NowResponse) => {
 
     const email = request.query.email.toString();
 
-    const finalEmail = email.replace(" ", "");
+    const finalEmail = email.replace(/ /g,"");
 
     const sgMail = require('@sendgrid/mail');
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
