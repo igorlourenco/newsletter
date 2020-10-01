@@ -2,18 +2,18 @@ import {NowRequest, NowResponse} from '@vercel/node'
 
 export default async (request: NowRequest, response: NowResponse) => {
 
-    const email = request.query.email.toString();
+    let email = request.query.email.toString();
 
-    const finalEmail = email.replace(/ /g,"");
+    email = email.replace(/ /g,"");
 
     const sgMail = require('@sendgrid/mail');
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     const msg = {
-        to: finalEmail,
+        to: email,
         from: 'theigorlourenco@gmail.com', // Use the email address or domain you verified above
         subject: '⚡ Você se inscreveu na newsletter Igor Lourenço',
         text: 'Obrigado por ter se inscrito. Enviarei conteúdo diariamente',
-        html: '<strong>essa newsletter é fictícia</strong>',
+        html: '<h6>Obrigado por ter se inscrito. Enviarei conteúdo diariamente</h6><br><strong>essa newsletter é fictícia</strong>',
     };
 
     sgMail
