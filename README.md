@@ -20,8 +20,8 @@
 ##### Practiced concepts:
 * automatic email sending;
 * saving data in a database;
-* use of forms;
-* validation of forms.
+* forms usage;
+* forms validation.
 
 ---
 
