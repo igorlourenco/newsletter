@@ -4,8 +4,6 @@
 
 **A basic application that simulates the subscription to a newsletter and, as soon as the user subscribes, saves his email in a database and sends a confirmation email.**
 
-> If you want, take a look at the [article I did on Medium about a cool interface library](https://medium.com/igor-js/chakra-ui-facilitando-o-front-end-javascript-aabcade75f09).
-
 ---
 
 ##### Used technologies:
