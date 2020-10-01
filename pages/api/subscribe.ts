@@ -33,6 +33,8 @@ export default async (request: NowRequest, response: NowResponse) => {
     const db = await connectToDatabase(process.env.MONGODB_URI);
     const collection = db.collection('subscribers');
 
+    console.log(db.collection('subscribers').find({}));
+
     await collection.insertOne({
         email,
         subscribedAt: new Date()
